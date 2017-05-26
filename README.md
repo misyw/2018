@@ -1,2 +1,4 @@
-# onegit
-want to for myself
+# master内容
+
+  -branch 
+   -baiduClass
