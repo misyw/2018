@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			li{list-style: none;background:#b6b6b6;color:#fff;float:left;margin-right:15px;padding:5px 10px;}
+		</style>
+	</head>
+	<body>
+		<!--任务描述：有一个input输入框，以及4个操作按钮
+
+			点击"左侧入"，将input中输入的数字从左侧插入队列中；
+			点击"右侧入"，将input中输入的数字从右侧插入队列中；
+			点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+			点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+			点击队列中任何一个元素，则该元素会被从队列中删除-->
+		
+		<input type="text"  id="input"/>
+		<button type="button" id="leftIn">左侧入</button>
+		<button type="button" id="rightIn">右侧入</button>
+		<button type="button" id="leftOut">左侧出</button>
+		<button type="button" id="rightOut">右侧出</button>
+		
+		<ul id="contBox">
+		</ul>
+	</body>
+	<script>
+		function leftInbtn(){
+			var leftIn=document.getElementById("leftIn");
+			
+			leftIn.onclick=function(){
+				var val=input.value;
+				if(val==""){
+					alert("请输入数字")
+				}else if( !isNaN(val) && !/\s/.test(val) ){
+					var txt=document.createElement("li");
+					txt.innerHTML=val;
+					//insertBefore方法使用时，txt必须为creatrElement节点。不能使用字符串。
+					contBox.insertBefore(txt,contBox.firstChild);
+				}else{
+					alert("请输入数字")
+				}
+			}
+		}
+		function rightInbtn(){
+			var rightIn=document.getElementById("rightIn");
+			rightIn.onclick=function(){
+				var val=input.value;
+				if(val==""){
+					alert("请输入数字")
+				}else if( !isNaN(val) && !/\s/.test(val) ){
+					var txt=document.createElement("li");
+					txt.innerHTML=val;
+					//insertBefore方法使用时，txt必须为creatrElement节点。不能使用字符串。
+					contBox.appendChild(txt);
+				}else{
+					alert("请输入数字")
+				}
+			}
+		}
+	
+		function leftOutbtn(){
+			var leftOut=document.getElementById("leftOut");
+			leftOut.onclick=function(){
+				alert("删除第一个元素："+contBox.firstElementChild.innerHTML);
+				contBox.removeChild(contBox.firstElementChild);
+			}
+		}
+		function rightOutbtn(){
+			var rightOut=document.getElementById("rightOut");
+			rightOut.onclick=function(){
+				alert("删除最后一个元素："+contBox.lastElementChild.innerHTML);
+				contBox.removeChild(contBox.lastElementChild);
+			}
+		}
+	
+		function clickDelete(){
+			contBox.addEventListener("click",function(e){
+				ev = e || window.event;
+				var target=ev.target ;
+				e.preventDefault();//阻止默认事件
+				//判断点击目标的节点名称
+				if(target.nodeName.toLowerCase()=="li"){
+			        contBox.removeChild(target);
+			    }
+			});
+		}
+		
+		(function(){
+			var input=document.getElementById("input");
+			var contBox=document.getElementById("contBox");
+			leftInbtn();//左侧入
+			rightInbtn();//右侧入
+			leftOutbtn();//左侧出
+			rightOutbtn();//右侧出
+			clickDelete();//点击每一个数字删除
+		})();
+	</script>
+</html>
