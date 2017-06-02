@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			li{list-style: none;background:#b6b6b6;color:#fff;float:left;margin-right: 2px;margin-top: 5px;
+				position:relative;bottom:0;
+			}
+			.contBox:after{content:"";clear:both;width:100%;height:0;display:block;}
+		</style>
+	</head>
+	<body>
+		<!--任务描述
+		基于上一任务
+		限制输入的数字在10-100
+		队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+		队列展现方式变化如图，直接用高度表示数字大小
+		实现一个简单的排序功能，如冒泡排序（不限制具体算法），用可视化的方法表达出来，参考见下方参考资料-->
+		
+		
+		<input type="text"  id="input"/>
+		<button type="button" id="leftIn">左侧入</button>
+		<button type="button" id="rightIn">右侧入</button>
+		<button type="button" id="leftOut">左侧出</button>
+		<button type="button" id="rightOut">右侧出</button>
+		
+		<ul id="contBox"></ul>
+		
+		直接排序：<button type="button" id="quick">快速排序</button>
+		      <button type="button" id="bubble">冒泡排序</button>
+			  <button type="button" id="sel">选择排序</button>
+			  <button type="button" id="insert">插入排序</button>
+	</body>
+	<script>
+	
+	
+	
+		var arrList=new Array();
+		function leftInbtn(){
+			var leftIn=document.getElementById("leftIn");
+			
+			leftIn.onclick=function(){
+				var val=input.value;
+				if(val==""){
+					alert("请输入数字")
+				}else if( !isNaN(val) && !/\s/.test(val) ){
+					if(val<100 && val>10){
+						var txt=document.createElement("li");
+						txt.innerHTML=val;
+						txt.style.height=val+"px";
+						txt.style.marginTop=100-val+"px";
+						//insertBefore方法使用时，txt必须为creatrElement节点。不能使用字符串。
+						contBox.insertBefore(txt,contBox.firstChild);
+						arrList.unshift(val);
+					}else{
+						alert("请输入10-100之间的数字")
+					}
+					
+				}else{
+					alert("请输入数字")
+				}
+				
+				console.log(arrList);
+			}
+		}
+		function rightInbtn(){
+			var rightIn=document.getElementById("rightIn");
+			rightIn.onclick=function(){
+				var val=input.value;
+				if(val==""){
+					alert("请输入数字")
+				}else if( !isNaN(val) && !/\s/.test(val) ){
+					if(val<100 && val>10){
+						var txt=document.createElement("li");
+						txt.innerHTML=val;
+						txt.style.height=val+"px";
+						txt.style.marginTop=100-val+"px";
+						//insertBefore方法使用时，txt必须为creatrElement节点。不能使用字符串。
+						contBox.appendChild(txt);
+						arrList.push(val);
+					}else{
+						alert("请输入10-100之间的数字")
+					}
+				}else{
+					alert("请输入数字")
+				}
+				
+				console.log(arrList);
+			}
+		}
+	
+		function leftOutbtn(){
+			var leftOut=document.getElementById("leftOut");
+			leftOut.onclick=function(){
+				alert("删除第一个元素："+contBox.firstElementChild.innerHTML);
+				contBox.removeChild(contBox.firstElementChild);
+			}
+		}
+		function rightOutbtn(){
+			var rightOut=document.getElementById("rightOut");
+			rightOut.onclick=function(){
+				alert("删除最后一个元素："+contBox.lastElementChild.innerHTML);
+				contBox.removeChild(contBox.lastElementChild);
+			}
+		}
+		
+		function rebuild(arr){ //重新生成
+			var contBox=document.getElementById("contBox");
+			contBox.innerHTML="";
+			
+			for(var i=0;i<arr.length;i++){
+				var li=document.createElement("li");
+				li.innerText=arr[i];
+				li.style.height=arr[i]+"px";
+				li.style.marginTop=100-arr[i]+"px";
+				
+				contBox.appendChild(li);
+			}
+			
+		}
+	
+	
+		function clickDelete(){ //单个删除
+			contBox.addEventListener("click",function(e){
+				ev = e || window.event;
+				var target=ev.target ;
+				e.preventDefault();//阻止默认事件
+				//判断点击目标的节点名称
+				if(target.nodeName.toLowerCase()=="li"){
+			        contBox.removeChild(target);
+			    }
+			});
+		}
+	
+		function Qsort(arr){ //快速排序
+		 	if (arr.length <= 1) {
+			    return arr.slice(0);
+			}
+		 	//快速排序才用的是递归的方式，以某一个临界点来区分。左右数组
+			var left=[];
+			var right=[];
+			var mid=[arr[0]];
+			
+			for(var i=1;i<arr.length;i++){
+				if(arr[i] < mid[0]){
+					left.push(arr[i]);
+				}else{
+					right.push(arr[i]);
+				}
+			}
+			
+			return  Qsort(left).concat( mid.concat(Qsort(right)) );
+		};
+		
+		function Bsort(arr){//冒泡排序
+			//冒泡排序是两两比较如果相比较大的话就执行交换
+			if(arr.length <= 1){
+			    return arr;
+			}
+			
+			/*for(var i=0;i<arr.length;i++){ //该算法执行n*n次
+				for(var j=0;j<arr.length;j++){
+					if(arr[i]<arr[j]){
+						var pre=arr[i];
+						arr[i]=arr[j];
+						arr[j]=pre;
+					}
+				}
+			}*/
+			
+			 for(var j=0; j<arr.length; j++) { //改算法优于n*n
+			    for(var i=0; i<arr.length-j; i++) {
+			      if(arr[i] > arr[i+1]) {
+			        var tmp = arr[i];
+			        arr[i] = arr[i+1];
+			        arr[i+1] = tmp;
+			      }
+			    }
+			  }
+			
+			return arr;
+		}
+		function sSort(arr){//选择排序
+		    if(arr.length <= 1) {
+		        return arr
+		    }
+		    var i, j, min;
+		    var temp;
+		    for (i = 0; i < arr.length - 1; i++) {
+		        min = i;
+		        for (j = i + 1; j < arr.length; j++) {
+		            if (arr[min] > arr[j])
+		                min = j;
+		        }
+		        temp = arr[min];
+                arr[min] = arr[i];
+                arr[i] = temp;
+		    }
+		    return arr;
+		}
+	
+		function inSort(arr){//插入排序
+			  if(arr.length <= 1) {
+			    return arr
+			  }
+			  for(var i=0; i<arr.length; i++) {
+			    for(var j=i-1; j>=0; j--) {
+			      if(arr[j+1] < arr[j]) {
+			        var temp = arr[j+1];
+			        arr[j+1] = arr[j];
+			        arr[j] = temp
+			      }
+			    }
+			  }
+			  return arr
+		}
+	
+	
+	
+	
+		function quickSort(arr){//快速排序按钮
+			var qbtn=document.getElementById("quick");
+			
+			qbtn.onclick=function(){
+				var result =Qsort(arr);
+				rebuild(result);
+				clickDelete();
+			}
+		}
+		
+		function  bubbleSort(arr){//冒泡排序按钮
+			var bBtn=document.getElementById("bubble");
+			
+			bBtn.onclick=function(){
+				var result = Bsort(arr);
+				rebuild(result);
+				clickDelete();
+			}
+		}
+		function  selSort(arr){//选择排序按钮
+			var selBtn=document.getElementById("sel");
+			
+			selBtn.onclick=function(){
+				console.log("A");
+				var result = sSort(arr);
+				rebuild(result);
+				clickDelete();	
+			}
+		}
+		
+		function  insertSort(arr){//插入排序按钮
+			var inBtn=document.getElementById("insert");
+			
+			inBtn.onclick=function(){
+				console.log("A");
+				var result = inSort(arr);
+				rebuild(result);
+				clickDelete();	
+			}
+		}
+		
+		(function(){
+			
+			var input=document.getElementById("input");
+			var contBox=document.getElementById("contBox");
+			leftInbtn();//左侧入
+			rightInbtn();//右侧入
+			leftOutbtn();//左侧出
+			rightOutbtn();//右侧出
+			clickDelete();//点击每一个数字删除
+			
+			quickSort(arrList);//快速排序
+			bubbleSort(arrList);//冒泡排序
+			selSort(arrList);//选择排序
+			insertSort([6,7,1,4,74]);
+			
+		})();
+	</script>
+</html>
