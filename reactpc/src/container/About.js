@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import { Route, withRouter ,Router } from 'react-router'
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
  class About extends React.Component{
     
     constructor(props){
@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
     }
     getActions = () =>{
         debugger
-        
+        console.log(this.props)
         console.log(this.props.authReducer.actions)//4 通过该内容获取存储的user信息
     }
     render(){
@@ -30,8 +30,12 @@ import { connect } from 'react-redux';
     }
 }
 
+
 //export default withRouter(About)
+
+
+
  export default withRouter(connect(state => state, dispatch => ({
     setUser: user => dispatch( {type:'AUTH_SUCCESS',user}),//2通过该命令派发出去。
-    actionState: (user) => dispatch(console.log('about.js中的内容'))
+    actionsEvent: bindActionCreators({type:'AUTH_SUCCESS'}, dispatch)
   }))(About));
