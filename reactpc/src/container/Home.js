@@ -3,11 +3,8 @@ import React from 'react'
 import {withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
  class Home extends React.Component{
-    
-    
     handleClick = () =>{
         console.log('点击')
         console.log(this.props)
@@ -25,7 +22,6 @@ import { bindActionCreators } from 'redux';
             </div>
         )
     }
-
 }
 //5-链接上redux可以获取全局变量
  export default withRouter(connect(state => state)(Home));

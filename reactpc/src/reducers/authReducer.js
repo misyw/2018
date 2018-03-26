@@ -8,7 +8,7 @@ const authReducer = (state = initialState , action) => {
     case ActionType.SUCCESS_AUTH:
       return {
         ...state,
-        actions:action.user //3将该内容存储在actions中
+        actions:action.user, //3将该内容存储在actions中
       }
     case ActionType.FAIL_AUTH:
       return {
