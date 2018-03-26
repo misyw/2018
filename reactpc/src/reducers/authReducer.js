@@ -1,14 +1,16 @@
+import * as ActionType from '../actions/index'
+
 const initialState = {
   isAuthenticated: false
 }
 const authReducer = (state = initialState , action) => {
   switch (action.type) {
-    case 'AUTH_SUCCESS':
+    case ActionType.SUCCESS_AUTH:
       return {
         ...state,
         actions:action.user //3将该内容存储在actions中
       }
-    case 'AUTH_FAIL':
+    case ActionType.FAIL_AUTH:
       return {
         ...state,
         isAuthenticated: false

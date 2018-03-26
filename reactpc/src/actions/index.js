@@ -1,9 +1,14 @@
-const authSuccess = () => ({
-type: 'AUTH_SUCCESS'
+
+export const SUCCESS_AUTH = 'AUTH_SUCCESS'
+export const FAIL_AUTH = 'AUTH_FAIL'
+
+
+export const authSuccess = () => ({
+    type: SUCCESS_AUTH
 })
 
-const authFail = () => ({
-type: 'AUTH_FAIL'
+export const authFail = () => ({
+    type: FAIL_AUTH
 })
 
   
