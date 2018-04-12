@@ -13,6 +13,7 @@
   padding: 20px;
   color: white;
 }
+@import '~antd/dist/antd.css';
 
 .App-title {
   font-size: 1.5em;

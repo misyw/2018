@@ -1,11 +1,10 @@
 import React from 'react'
-import { withRouter } from 'react-router'
+// import { connect, Provider } from 'react-redux'
+import {withRouter } from 'react-router'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actionABC from '../actions';
-import {about as aboutService} from '../service'
- class About extends React.Component{
-    
+import {about as aboutService} from '../../service'
+import { Link } from 'react-router-dom'
+class baseIndex extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -33,18 +32,19 @@ import {about as aboutService} from '../service'
         // const { onToggleTodo } = this.props
         return (
             <div>
-                <h1>这里的内容是About组件中的</h1>
+                <h1>这里的内容是baseIndex组件中的</h1>
                 <button type="button" onClick={this.handleClick}>点击执行click事件</button>
                 <button type="button" onClick={this.getActions}>点击getActions事件</button>
                 <button onClick={this.getActionsEvent}>点击这个执行stroeactionsEvent方法</button>
+                <Link to="/About">点击进入关于我们自己</Link>
             </div>
         )
     }
 }
-
+//5-链接上redux可以获取全局变量
 export default withRouter(connect(state => state, dispatch => ({
     setUser: user => dispatch({type:'AUTH_SUCCESS',user}),//2通过该命令派发出去。
     //mapDispatchToProps 2-通过添加service来执行回调函数/或者直接写
     setMenu:(url,values,success,type) => aboutService.getInfo(url,values,success,type),
     // mapDispatchToProps
-}))(About));
+}))(baseIndex));
