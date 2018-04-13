@@ -39,3 +39,22 @@
 -About.js
 -authReducer.js
 ```
+#### 难点攻克
+
+##### 全局Confirm 
+
+描述：搭载redux改变props状态 从而改变弹出层的显示隐藏，并给予成功回调。
+
+实现：将在container中的view层,使用withRouter(connect(state,dispatch))(Component),即可全局调用同一个Modal
+
+```
+-container/testDemo/testDemo1[调用] 
+-component/Confirm [实现] 
+-component/LayoutContent [视图] 
+-actions/index.js  {toggleConfirm , toggleConfirmFail } [逻辑]
+-reducers/toggleConfirm.js [逻辑]
+-reducers/index.js [逻辑]
+```
+
+
+

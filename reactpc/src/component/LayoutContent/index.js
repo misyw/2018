@@ -4,6 +4,7 @@ import {withRouter } from 'react-router'
 import { connect } from 'react-redux';
 import { Switch, Redirect } from 'react-router-dom';
 import RouteWithSubRoutes from '../../router/routeWithSubRoutes';
+import  Confirm from '../Confirm'
 import { Layout, Breadcrumb} from 'antd';
 const {Content } = Layout;
 
@@ -22,15 +23,11 @@ const styles ={
 
 class LayoutContent extends React.Component{
     
-    constructor(props) {
-        super(props)
-       console.log('',this.props)
-      }
-
     render(){
         const { routes } =this.props;
         return (
             <Content style={styles.container}>
+                <Confirm></Confirm>
                 <Breadcrumb  style={styles.breadcrumb}>
                     <Breadcrumb.Item>首页</Breadcrumb.Item>
                     <Breadcrumb.Item>option1</Breadcrumb.Item>
