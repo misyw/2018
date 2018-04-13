@@ -1,7 +1,3 @@
-### master内容
+### 文件夹说明
 
--master
--baiduClass
-
-
-[个人博客地址](https://www.ywbolg.com)
+-  `reactpc`  是由 `react + redux + react-router + less ` 的技术栈(pc项目)
