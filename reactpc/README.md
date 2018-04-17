@@ -33,15 +33,9 @@
 该项目为试手demo,旨在搭建`react-router`和`redux`结合在一起的后台框架界面,将会使用`ant`样式库。
 
 ##important-progress
-项目中搭载了 路由，redux完成了动作分发、存储、以及获取值的动作
-重要文件为：
-```
--About.js
--authReducer.js
-```
-#### 难点攻克
+#### 画个重点
 
-##### 全局Confirm 
+##### 1.全局Confirm 
 
 描述：搭载redux改变props状态 从而改变弹出层的显示隐藏，并给予成功回调。
 
@@ -56,5 +50,37 @@
 -reducers/index.js [逻辑]
 ```
 
+##### 2.添加echart.js
 
+[API参考（包含按需加载、配置项详情）](https://www.npmjs.com/package/echarts-for-react)
+
+```
+yarn add echarts
+yarn add echarts-for-react
+```
+
+##### 3.fetch用法
+
+[参考文档](https://blog.csdn.net/cnweike/article/details/74012249)
+
+```
+var opts = {
+    method:"POST",   //请求方法
+    body:{},   //请求体
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    },
+}
+
+fetch(url, opts)
+    .then((res,body)=>{
+    	return res.json()//此处需要转成json格式或text格式
+    }).then((resonseData) => {
+        options.suceess(resonseData) //将返回值传回调用方
+    })
+    .catch((res,body)=>{
+    	return options.error(res)//将错误信息传回调用方
+    })
+```
 
