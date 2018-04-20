@@ -12,6 +12,7 @@ class baseIndex extends React.Component{
             loading: false,
         }
     }
+    
     handleClick = () =>{
         this.props.setUser({username:'yuwei',age:33})//1在这里执行action派发动作。
         console.log(this.props.history);

@@ -84,3 +84,17 @@ fetch(url, opts)
     })
 ```
 
+##### 4.全局登陆退出
+
+思路：this.props.loginState.isLogin  是唯一判断标准。在LayoutContent中，检测props中的状态，默认false,进入登陆页。登录后 将该状态改成true。
+
+```
+//重要文件
+-login.js
+-LayoutContent/index.js
+-actions/index.js
+-reducers/loginState.js
+```
+
+
+

@@ -27,7 +27,8 @@ export const FormFetch = (url,options)=>{
         headers: new Headers({
             'Content-Type': 'application/x-www-form-urlencoded' // 指定提交方式为表单提交
         }),
-        body: new URLSearchParams(options.body).toString()
+        //body: new URLSearchParams(options.body).toString() //  此处也可以完成formData 格式转换
+        body:querystring.stringify(options.body)
     }
     fetch(url, opts)
     .then((res,body)=>{

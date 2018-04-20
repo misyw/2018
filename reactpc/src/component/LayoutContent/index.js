@@ -23,8 +23,23 @@ const styles ={
 
 class LayoutContent extends React.Component{
     
+    componentDidMount() {
+        const { history } = this.props;
+        // console.log('Page Init',this.props)
+        if(!this.props.loginState.isLogin){
+            history.push('/login')
+        }
+    }
+    componentWillReceiveProps(){
+        // console.log('LayoutContent',this.props)
+        const { history } = this.props;
+        if(!this.props.loginState.isLogin){
+            history.push('/login')
+        }
+    }
+
     render(){
-        const { routes } =this.props;
+        const { routes , loginState} =this.props;
         return (
             <Content style={styles.container}>
                 <Confirm></Confirm>
@@ -33,6 +48,8 @@ class LayoutContent extends React.Component{
                     <Breadcrumb.Item>option1</Breadcrumb.Item>
                 </Breadcrumb>
                 <div style={styles.gap}>
+                {
+                    loginState.isLogin ?
                     <Switch >
                         {
                         routes.map((route, i) => (
@@ -41,6 +58,9 @@ class LayoutContent extends React.Component{
                         }
                         <Redirect from={'/'} to={'/baseIndex'}/>  
                     </Switch>
+                    : ''
+                }
+                    
                 </div>
             </Content>
                

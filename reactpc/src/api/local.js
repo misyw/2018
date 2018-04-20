@@ -1,2 +1,1 @@
-export const _Local = 'https://www.easy-mock.com/mock/5a9e2dea624c883bea8b110e/example'
-
+export const _Local = 'https://www.easy-mock.com/mock/5ad9452b505da819e171feda/reactPc';

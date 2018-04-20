@@ -3,7 +3,7 @@ import React from 'react'
 import {withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { Layout, Menu, Avatar} from 'antd';
+import { Layout, Menu, Avatar , Modal} from 'antd';
 const { Header } = Layout;
 
 class LayoutHeader extends React.Component{
@@ -27,8 +27,22 @@ class LayoutHeader extends React.Component{
     }
 
     signOut = () =>{
-        //退出登录
-        this.props.history.push('/login')
+        console.log(this.props)
+        Modal.confirm({
+            title:'退出提醒',
+            content:'您确定要退出登陆吗？',
+            onOk:()=>{
+                debugger
+                console.log(this.props)
+                this.props.setLoginState(false)
+                //退出登录
+                this.props.history.push('/login')
+            },
+            onCancel:()=>{
+
+            }
+        })
+        
     }
     render(){
         const { selectedKeys } =this.state;
@@ -53,4 +67,6 @@ class LayoutHeader extends React.Component{
     }
 }
 //5-链接上redux可以获取全局变量
- export default withRouter(connect(state => state)(LayoutHeader));
+ export default withRouter(connect(state => state,dispatch=>({
+    setLoginState: bool => dispatch({type:'LOGIN_FAIL',bool}),//2通过该命令派发出去。
+ }))(LayoutHeader));
