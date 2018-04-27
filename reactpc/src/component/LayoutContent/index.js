@@ -6,6 +6,7 @@ import { Switch, Redirect } from 'react-router-dom';
 import RouteWithSubRoutes from '../../router/routeWithSubRoutes';
 import  Confirm from '../Confirm'
 import { Layout, Breadcrumb} from 'antd';
+import {mapStateToProps } from '../../common/tools';
 const {Content } = Layout;
 
 const styles ={
@@ -26,20 +27,21 @@ class LayoutContent extends React.Component{
     componentDidMount() {
         const { history } = this.props;
         // console.log('Page Init',this.props)
-        if(!this.props.loginState.isLogin){
+        if(!this.props.actionState.loginState.isLogin){
             history.push('/login')
         }
     }
     componentWillReceiveProps(){
         // console.log('LayoutContent',this.props)
         const { history } = this.props;
-        if(!this.props.loginState.isLogin){
+        if(!this.props.actionState.loginState.isLogin){
             history.push('/login')
         }
     }
 
     render(){
-        const { routes , loginState} =this.props;
+        const { routes } =this.props;
+        const { loginState} =this.props.actionState;
         return (
             <Content style={styles.container}>
                 <Confirm></Confirm>
@@ -68,4 +70,4 @@ class LayoutContent extends React.Component{
     }
 }
 //5-链接上redux可以获取全局变量
- export default withRouter(connect(state => state)(LayoutContent));
+ export default withRouter(connect(mapStateToProps)(LayoutContent));

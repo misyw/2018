@@ -1,4 +1,6 @@
-import querystring from 'querystring'
+import querystring from 'querystring';
+import * as Actions from '../actions';
+import { bindActionCreators } from 'redux';
 export const JsonFetch = (url,options)=>{
     console.log(url,options)
     let opts = {
@@ -40,3 +42,10 @@ export const FormFetch = (url,options)=>{
         return options.error(res)
     })
 }
+
+export const mapStateToProps = state => ({
+    actionState: state
+})
+export const mapDispatchToProps = dispatch => ({
+actions: bindActionCreators(Actions, dispatch)
+})

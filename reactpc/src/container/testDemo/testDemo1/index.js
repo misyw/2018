@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { Button , Modal} from 'antd';
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
+import {mapStateToProps , mapDispatchToProps } from '../../../common/tools';
 const confirm = Modal.confirm;
 class testDemo1 extends Component {
 
   confirm = ()=>{
     console.log('click confirm')
     //告诉redux需要打开confirm表单-并且传入确认时候回调函数
-    this.props.toggleConfirm(true,{
+    this.props.actions.toggleConfirm(true,{
       title:'警告！',
       content:'哇！花了这么多功夫写的Confirm,居然发现官方有写好的，好气哦！',
       fn:(data)=>{
@@ -48,6 +49,4 @@ class testDemo1 extends Component {
     )
   }
 }
-export default withRouter(connect(state => state, dispatch => ({
-  toggleConfirm: (bool,option) => dispatch({type:'TOGGLE_CONFIRM',bool,option})
-}))(testDemo1));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(testDemo1));

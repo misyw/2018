@@ -7,8 +7,9 @@ export const TOGGLE_CONFIRM = 'TOGGLE_CONFIRM'
 export const TOGGLE_CONFIRM_FAIL = 'TOGGLE_CONFIRM_FAIL'
 
 
-export const loginSuccess = () => ({
+export const setLoginSuccess = (bool) => ({
     type: LOGIN_SUCCESS,
+    bool
 })
 
 export const signOut = ()=>({
@@ -23,10 +24,13 @@ export const authFail = () => ({
     type: FAIL_AUTH
 })
 
-export const toggleConfirm = () => ({
-    type: TOGGLE_CONFIRM
+export const toggleConfirm = (bool,option) => ({
+    type: TOGGLE_CONFIRM,
+    bool,
+    option
 })
 
-export const toggleConfirmFail = () => ({
-    type: TOGGLE_CONFIRM_FAIL
+export const toggleConfirmFail = (json) => ({
+    type: TOGGLE_CONFIRM_FAIL,
+    json
 })

@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal} from 'antd';
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
-
+import {mapStateToProps , mapDispatchToProps } from '../../common/tools';
 /**
  * @param title 弹出层标题
  * @param content 弹出层内容
@@ -23,31 +23,31 @@ import { connect } from 'react-redux';
     }
     
     componentWillReceiveProps= (nextProps) =>{
-        console.log('modalComponent ReceiveProps',nextProps)//设置打开confirm的时候的props
+        //console.log('modalComponent ReceiveProps',nextProps)//设置打开confirm的时候的props
     }
 
     handleOk = ()=>{
-        this.props.toggleConfirm.callback('Confirm返回true');
-        this.props.toggleConfirmFail(false)//关闭弹窗
+        this.props.actionState.toggleConfirm.callback('Confirm返回true');
+        this.props.actions.toggleConfirmFail(false)//关闭弹窗
     }
     handleCancel = ()=>{
-        this.props.toggleConfirmFail(false)//关闭弹窗
+        this.props.actions.toggleConfirmFail(false)//关闭弹窗
     }
     render(){
+        console.log(this.props.actionState.toggleConfirm.toggle)
+        debugger
         return(
             <Modal
-                visible={this.props.toggleConfirm.toggle}
+                visible={this.props.actionState.toggleConfirm.toggle}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
-                title= {this.props.toggleConfirm.confirmOption.title || ''}>
-                    {this.props.toggleConfirm.confirmOption.content  || ''}
+                title= {this.props.actionState.toggleConfirm.confirmOption.title || ''}>
+                    {this.props.actionState.toggleConfirm.confirmOption.content  || ''}
             </Modal>
         )
     }
 }
-export default withRouter(connect(state => state, dispatch => ({
-    toggleConfirmFail: (bool,option) => dispatch({type:'TOGGLE_CONFIRM_FAIL',bool,option}),//2通过该命令派发出去。
-}))(Confirm));
+export default withRouter(connect(mapStateToProps , mapDispatchToProps)(Confirm));
 
 // 哆牙呆 扣牙呆那塔 吼哇 kei你都哈那嗖嘎
 // 啊类那呆 哭类 大 呆一码 搜古 kei组以带苦类
