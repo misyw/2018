@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>按钮组件</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>  
+    <div id="container"></div>
+    <button id="btn1">default</button>
+    <button id="btn2" class="primary">primary</button>
+    <button id="btn3" class="primary small">primary small</button>
+    <button id="btn4" class="large">large</button>
+    <script>
+        window.onload=function(){
+            function Button (options){
+                console.log(options)
+                this.text = options.text || '按钮';
+
+                var dom = document.createElement('button');
+                dom.innerHTML= this.text;
+                dom.onclick= options.fn|| null;
+                dom.disabled=options.disabled || false;
+                return dom ; 
+            }    
+
+            var btn = new Button ({
+                text:'new Button',
+                disabled:true,
+                fn:function(){
+                    alert('1')
+                }
+            })
+            document.getElementById('container').appendChild(btn)
+           
+        }
+    </script>
+</body>
+
+</html>
