@@ -24,6 +24,7 @@ const menuJson = [
         subMenuList:[
             {key:'test1',title:'测试Demo1',path:'/testDemo/testDemo1'},
             {key:'test2',title:'测试Demo2',path:'/testDemo/testDemo2'},
+            {key:'test3',title:'测试Demo3',path:'/testDemo/testDemo3'},
         ]
     },
 ]

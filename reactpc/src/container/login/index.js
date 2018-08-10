@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Layout , message , Tooltip} from 'antd';
 import login from '../../api/login';
-import { FormFetch ,mapStateToProps,mapDispatchToProps } from '../../common/tools';
+import { FormFetch , JsonFetch, mapStateToProps,mapDispatchToProps } from '../../common/tools';
 import './login.less';
 
 
@@ -57,6 +57,18 @@ class Login extends  Component {
   state={
     loading:false
   }
+
+  componentDidMount = ()=>{
+    // JsonFetch('/getsql',{
+    //   body:{},
+    //   suceess:(data)=>{
+    //     console.log(JSON.stringify(data))
+    //   },
+    //   error:(data)=>{
+    //       console.log(data)
+    //   }
+    // })
+  }
   loginSubmit = (data)=>{
     this.setState({loading:true})
     if(data.userName==='admin' && data.password==='qweasd'){
@@ -83,6 +95,8 @@ class Login extends  Component {
             console.log(data)
         }
       })
+
+      
      
     }else{
       message.error('账号信息输入错误！')

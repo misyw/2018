@@ -7,5 +7,6 @@ export default {
   routes: [
     { exact:true, path: '/testDemo/testDemo1', name: 'testDemo1', component: asyncComponent(() => import("../container/testDemo/testDemo1"))},
     { exact:true, path: '/testDemo/testDemo2', name: 'testDemo2', component: asyncComponent(() => import("../container/testDemo/testDemo2"))},
+    { exact:true, path: '/testDemo/testDemo3', name: 'testDemo3', component: asyncComponent(() => import("../container/testDemo/testDemo3"))},
   ]
 }
