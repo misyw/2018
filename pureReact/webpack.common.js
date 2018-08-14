@@ -1,10 +1,94 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');//单独把 CSS 文件分离出来
 const webpack = require('webpack');
 
 module.exports ={
   module:{
     rules:[
+      {
+	  		test:/\.(png|svg|jpg|gif)$/,
+	  		use:[
+	  			'file-loader'
+	  		]
+	  	},
+      {
+        test:/\.css$/,
+        exclude: /node_modules|antd\.css/,
+        use:ExtractTextPlugin.extract({ 
+          fallback: 'style-loader',//将 css-loader 解析的结果转变成 JS 代码
+          use: [
+            {
+              loader:'css-loader',
+              options: {
+                modules: true,//开启css-modules对样式添加css-hash
+                localIdentName: "[local]_[hash:base64:8]"
+              }
+            }
+          ]
+        })
+      },
+      {
+        test:/\.css$/,
+        include: /node_modules|antd\.css/,
+        use:ExtractTextPlugin.extract({ 
+          fallback: 'style-loader',//将 css-loader 解析的结果转变成 JS 代码
+          use: [
+            {
+              loader:'css-loader',
+              options: {
+                modules: false,//开启css-modules对样式添加css-hash
+                // localIdentName: "[local]_[hash:base64:8]"
+              }
+            }
+          ]
+        })
+      },
+      {
+        test: /\.less$/,
+        include: /node_modules/,
+        use:ExtractTextPlugin.extract({ 
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                  module: false
+              }
+            },
+            {//此处的属性针对antd中的less更换主题颜色
+              loader: 'less-loader',
+              options: {
+                modifyVars: { "@primary-color": "#f2a11c" },
+                javascriptEnabled: true
+              }
+            }
+          ]
+        })
+      },
+      // {
+      //   test: /\.less$/,
+      //   exclude: /node_modules/,
+      //   use:ExtractTextPlugin.extract({ 
+      //     fallback: 'style-loader',
+      //     use: [
+      //       {
+      //         loader: 'css-loader',
+      //         options: {
+      //             module: true,
+      //             localIdentName: "[local]_[hash:base64:8]"
+      //         }
+      //       },
+      //       {//此处的属性支持更换antd less的主题颜色
+      //         loader: 'less-loader',
+      //         options: {
+      //           modifyVars: { "@primary-color": "#f2a11c" },
+      //           javascriptEnabled: true
+      //         }
+      //       }
+      //     ]
+      //   })
+      // },
       {
         test: /\.(jsx|js)$/, // 匹配特定条件
         include: [ // 匹配特定路径
@@ -13,7 +97,10 @@ module.exports ={
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: ['es2015', 'react'],
+            plugins: [
+              ["import", { "libraryName": "antd","style": true }]
+            ]
           }
         }
       }
@@ -25,6 +112,7 @@ module.exports ={
       filename: 'index.html', 
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('[name].css'),
   ],
   
 }

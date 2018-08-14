@@ -6,7 +6,10 @@ class About extends React.PureComponent{
 
   render(){
     return(
-      <span>{`${_local}`}</span>
+      <span >
+        <p className={'color'}>这是about.js中的文字此处没有引入css</p>
+        {`${_local}`}
+      </span>
     )
   }
 }

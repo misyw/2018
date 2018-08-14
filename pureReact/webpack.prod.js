@@ -17,7 +17,7 @@ module.exports =merge(common,{
     jquery: 'jQuery'
   },
   plugins:[
-    new CleanWebpackPlugin(['public']),
+    new CleanWebpackPlugin(['build']),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV':JSON.stringify('production'),
       'process.env.objName':JSON.stringify(process.env.npm_config_objName),
@@ -25,7 +25,7 @@ module.exports =merge(common,{
   ],
   output:{
     filename:'[name].bundle.js',
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'build'),
   },
   //此处为提取公共文件-common.bundle.js + vendor.bundle.js 
   optimization: {

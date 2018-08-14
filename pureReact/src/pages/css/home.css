@@ -1,0 +1,15 @@
+/* 此属性将会加上hash编码 */
+.color{
+  color:pink
+}
+
+:local(.localColor){
+  color:green
+}
+/* 此属性不会加上hash编码 - 全局共用 - 即使不引入css */
+:global(.globalColor){
+  color:blue
+}
+:global(.color){
+  color:red
+}
