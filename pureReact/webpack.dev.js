@@ -19,6 +19,7 @@ module.exports =merge(common,{
     hot:true
   },
   plugins:[
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV':JSON.stringify('devolpment'),
       'process.env.objName':JSON.stringify(process.env.npm_config_objName),

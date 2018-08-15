@@ -4,6 +4,7 @@ import About from './about';
 import $ from 'jquery';
 import styles from './css/home.css';
 import { Button } from 'antd';
+console.log('出现的话则打包失败哦')
 class App extends React.PureComponent{
   render(){ 
     return(

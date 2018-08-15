@@ -14,7 +14,7 @@ module.exports ={
 	  	},
       {
         test:/\.css$/,
-        exclude: /node_modules|antd\.css/,
+        exclude: /node_modules|antd\.css/,//除开node_modules文件夹中的css和antd.css,都将执行以下规则
         use:ExtractTextPlugin.extract({ 
           fallback: 'style-loader',//将 css-loader 解析的结果转变成 JS 代码
           use: [
@@ -30,15 +30,14 @@ module.exports ={
       },
       {
         test:/\.css$/,
-        include: /node_modules|antd\.css/,
+        include: /node_modules|antd\.css/,//如果用了全局样式库，则仅对node_modules中的css和antd.css执行以下规则
         use:ExtractTextPlugin.extract({ 
           fallback: 'style-loader',//将 css-loader 解析的结果转变成 JS 代码
           use: [
             {
               loader:'css-loader',
               options: {
-                modules: false,//开启css-modules对样式添加css-hash
-                // localIdentName: "[local]_[hash:base64:8]"
+                modules: false,//关闭css-modules对样式添加css-hash
               }
             }
           ]
@@ -50,7 +49,7 @@ module.exports ={
         use:ExtractTextPlugin.extract({ 
           fallback: 'style-loader',
           use: [
-            {
+            {//关闭css-modules对样式的模块化
               loader: 'css-loader',
               options: {
                   module: false
@@ -108,11 +107,10 @@ module.exports ={
   },
   plugins:[
     new HtmlWebpackPlugin({
-      template:'./index.html',
+      template:'./src/index.html',
       filename: 'index.html', 
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('static/css/[name].css'),
   ],
   
 }

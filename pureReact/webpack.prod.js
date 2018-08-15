@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common');
 const CleanWebpackPlugin = require('clean-webpack-plugin');//每次编译的时候 删除dist文件夹
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports =merge(common,{
@@ -25,15 +26,26 @@ module.exports =merge(common,{
   ],
   output:{
     filename:'[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
   //此处为提取公共文件-common.bundle.js + vendor.bundle.js 
   optimization: {
+    //使用'uglifyjs-webpack-plugin'插件打包的时候清除console.log
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions:{
+          compress:{
+            drop_console:true
+          }
+        }
+      })
+    ],
     splitChunks: {
         cacheGroups: {
             commons: {
                 name: "commons",
-                chunks: "initial",
+                chunks: "all",
                 minChunks: 2
             }
         }
