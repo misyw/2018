@@ -98,6 +98,7 @@ module.exports ={
           options: {
             presets: ['es2015', 'react'],
             plugins: [
+              "syntax-dynamic-import",
               ["import", { "libraryName": "antd","style": true }]
             ]
           }

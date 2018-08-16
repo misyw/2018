@@ -4,6 +4,9 @@ import { _local } from '../common/util';
 
 class About extends React.PureComponent{
 
+  componentDidMount(){
+    console.log(this.props)
+  }
   render(){
     return(
       <span >

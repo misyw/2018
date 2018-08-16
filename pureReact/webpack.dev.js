@@ -16,6 +16,7 @@ module.exports =merge(common,{
   },
   devServer:{
     contentBase:path.resolve(__dirname, 'public'),
+    historyApiFallback:true,
     hot:true
   },
   plugins:[

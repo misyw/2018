@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 
 class Conect extends React.PureComponent{
 
+  componentDidMount(){
+    console.log(this.props)
+  }
+  
   render(){
     return(
       <span >
