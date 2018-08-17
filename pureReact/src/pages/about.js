@@ -4,7 +4,7 @@ import { _local } from '../common/util';
 
 class About extends React.PureComponent{
 
-  componentDidMount(){
+  componentWillMount(){
     console.log(this.props)
   }
   render(){

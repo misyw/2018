@@ -8,7 +8,7 @@ const webpack = require('webpack');
 module.exports =merge(common,{
   entry:{
     app:'./src/index.js',
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom'],//此处为第三方依赖，将会被
   },
   mode: "production",
   externals:{
@@ -28,7 +28,6 @@ module.exports =merge(common,{
     chunkFilename: '[name].[chunkhash].bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
-  //此处为提取公共文件-common.bundle.js + vendor.bundle.js 
   optimization: {
     //使用'uglifyjs-webpack-plugin'插件打包的时候清除console.log
     minimizer: [
@@ -40,6 +39,7 @@ module.exports =merge(common,{
         }
       })
     ],
+    //提取公共文件 - 此处为提取公共文件-common.bundle.js + vendor.bundle.js 
     splitChunks: {
         cacheGroups: {
             commons: {

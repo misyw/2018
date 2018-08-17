@@ -9,7 +9,13 @@ module.exports ={
       {
 	  		test:/\.(png|svg|jpg|gif)$/,
 	  		use:[
-	  			'file-loader'
+          {//limit字节范围内的图片，格式转换为base64的编码
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name:"static/images/[name]_[hash:8].[ext]",
+            }
+          },
 	  		]
 	  	},
       {
@@ -98,6 +104,7 @@ module.exports ={
           options: {
             presets: ['es2015', 'react'],
             plugins: [
+              "react-hot-loader/babel",
               "syntax-dynamic-import",
               ["import", { "libraryName": "antd","style": true }]
             ]
@@ -113,5 +120,9 @@ module.exports ={
     }),
     new ExtractTextPlugin('static/css/[name].css'),
   ],
-  
+  resolve:{
+    alias:{
+      "@Img": path.resolve(__dirname, 'src/common/image'),
+    }
+  }
 }
